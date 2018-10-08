@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+
+    "name": "Trello Operator",
+    "description": "RavenPack trello plugin - Expands stories and more",
+    "version": "1.0",
+
+    "content_scripts": [
+        {
+            "all_frames": true,
+            "matches": ["https://trello.com/*"] ,
+            "js": [
+                "lib/jquery.min.js",
+                "trello-operator.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        "lib/jquery-2.1.0.min.map"
+    ]
+
+}
