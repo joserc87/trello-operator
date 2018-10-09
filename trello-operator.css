@@ -1,7 +1,7 @@
 .collapse-button {
-    right: 40px
+    right: 40px !important
 }
 
 .collapsed {
-    margin: 0px !important
+    margin: 0px 0px 3px 0px !important
 }

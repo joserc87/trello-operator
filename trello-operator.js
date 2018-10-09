@@ -8,13 +8,53 @@ var $,
     Blob,
     saveAs;
 
+// BUTTON
 
+function handleCollapseButton(e) {
+
+  // Check if collapsing or expanding
+  var button = $(e.target);
+  var card = button.parent();
+
+  // Story title
+  var title = card.find('.card-label').attr('title');
+  var collapsed = card.hasClass('collapsed');
+
+  // Reverse button direciton
+  if (collapsed) {
+    button.removeClass('icon-down').addClass('icon-up');
+  } else {
+    button.removeClass('icon-up').addClass('icon-down');
+  }
+
+  // Collapse or expand
+  if (collapsed) {
+    getCardsByTitle(title).removeClass('collapsed');
+    expandStory(title);
+  } else {
+    getCardsByTitle(title).addClass('collapsed');
+    collapseStory(title);
+  }
+
+  // Stop propagation
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function createCollapseButton() {
+  var button = $('<span></span>');
+  button.addClass("collapse-button icon-sm icon-up list-card-operation dark-hover js-open-quick-card-editor js-card-menu");
+  button.on('click', handleCollapseButton);
+
+  return button;
+}
+
+/**
+ * Adds the plugin buttons to the page
+ */
 function addButtons() {
-  var collapseButtonHTML = '<span class="collapse-button icon-sm icon-down list-card-operation dark-hover js-open-quick-card-editor js-card-menu"></span>';
-  var collapseButton = document.createElement('span');
-  collapseButton.attr('class', "collapse-button icon-sm icon-down list-card-operation dark-hover js-open-quick-card-editor js-card-menu");
+  var collapseButton = createCollapseButton();
   $('.list-card').append(collapseButton);
-  $('.list-card').attr('style', 'background: red');
 }
 
 
@@ -29,16 +69,14 @@ function addEventListeners() {
 
     // Check if it's collapsed or expanded
     var el = $(e.target);
-    var collapsed = el.parent().parent().hasClass('collapsed');
+    var collapsed = el.parent().parent().parent().hasClass('collapsed');
 
     if (collapsed) {
       getCardsByTitle(title).removeClass('collapsed');
       expandStory(title);
-      //expandEverything();
     } else {
       getCardsByTitle(title).addClass('collapsed');
       collapseStory(title);
-      //collapseEverything();
     }
     e.stopPropagation();
   });
@@ -52,7 +90,7 @@ function getCardsByTitle(title) {
     return element.title == title;
   }
 
-  return $('.card-label').filter(filterByTitle).parent().parent();
+  return $('.card-label').filter(filterByTitle).parent().parent().parent();
 }
 
 function expandStory(title) {
@@ -94,7 +132,7 @@ function collapseEverything() {
 function applyExtension() {
   //collapse()
   addEventListeners();
-  //addButtons();
+  addButtons();
 }
 
 // on DOM load
