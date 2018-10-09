@@ -54,11 +54,38 @@ function handleCollapseButton(e) {
 }
 
 function createCollapseButton() {
-  var button = $('<span></span>');
+  var button = $('<span/>');
   button.addClass("collapse-button icon-sm icon-up list-card-operation dark-hover js-open-quick-card-editor js-card-menu");
   button.on('click', handleCollapseButton);
 
   return button;
+}
+
+function createPluginButton() {
+  var container = $('<span/>', {
+    class: 'board-header-btn'
+  });
+
+  var icon = $('<span/>', {
+    class: 'board-header-btn-icon icon-sm plugin-icon recolorable trello-operator-icon',
+  });
+
+  var collapseButton = $('<span/>', {
+    class: 'board-header-btn-text u-text-underline',
+    text: "-><-",
+    click: collapseEverything,
+  });
+
+  var expandButton = $('<span/>', {
+    class: 'board-header-btn-text u-text-underline',
+    text: "<-->",
+    click: expandEverything,
+  });
+
+  container.append(icon);
+  container.append(collapseButton);
+  container.append(expandButton);
+  return container;
 }
 
 /**
@@ -67,6 +94,8 @@ function createCollapseButton() {
 function addButtons() {
   var collapseButton = createCollapseButton();
   $('.list-card').append(collapseButton);
+  var pluginButton = createPluginButton();
+  $('.board-header-plugin-btns').append(pluginButton);
 }
 
 
@@ -151,18 +180,24 @@ function setCardsExpanded(cards, expanded) {
 }
 
 function expandEverything() {
+  $('.collapse-button').removeClass('icon-down').addClass('icon-up');
+  $('.list-card').removeClass('collapsed');
+
   $('.list-card-title').css('display', 'unset');
   $('.badges').css('display', 'unset');
   $('.sticker').css('display', 'unset');
-  $('.list-card-details').css('margin', '0');
+  $('.list-card-details').removeClass('collapsed');
   $('.list-card-members').css('display', 'unset');
 }
 
 function collapseEverything() {
+  $('.collapse-button').removeClass('icon-up').addClass('icon-down');
+  $('.list-card').addClass('collapsed');
+
   $('.list-card-title').css('display', 'none');
   $('.badges').css('display', 'none');
   $('.sticker').css('display', 'none');
-  $('.list-card-details').css('margin', '0');
+  $('.list-card-details').addClass('collapsed');
   $('.list-card-members').css('display', 'none');
 }
 
