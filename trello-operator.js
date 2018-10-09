@@ -20,20 +20,32 @@ function handleCollapseButton(e) {
   var title = card.find('.card-label').attr('title');
   var collapsed = card.hasClass('collapsed');
 
-  // Reverse button direciton
+  // If there is no label, the cards is the current one
+  var cards = title === undefined ? card : getCardsByTitle(title);
+
+  // Reverse buttons direcitons for this story
+  var buttons = cards.find('.collapse-button');
   if (collapsed) {
-    button.removeClass('icon-down').addClass('icon-up');
+    buttons.removeClass('icon-down').addClass('icon-up');
   } else {
-    button.removeClass('icon-up').addClass('icon-down');
+    buttons.removeClass('icon-up').addClass('icon-down');
   }
 
   // Collapse or expand
   if (collapsed) {
-    getCardsByTitle(title).removeClass('collapsed');
-    expandStory(title);
+    cards.removeClass('collapsed');
+    if (title) {
+      expandStory(title);
+    } else {
+      expandCard(card);
+    }
   } else {
-    getCardsByTitle(title).addClass('collapsed');
-    collapseStory(title);
+    cards.addClass('collapsed');
+    if (title) {
+      collapseStory(title);
+    } else {
+      collapseCard(card);
+    }
   }
 
   // Stop propagation
@@ -87,29 +99,47 @@ function addEventListeners() {
  */
 function getCardsByTitle(title) {
   function filterByTitle(index, element) {
-    return element.title == title;
+    return title === undefined || element.title === title;
   }
 
-  return $('.card-label').filter(filterByTitle).parent().parent().parent();
+  if (title !== undefined) {
+    return $('.card-label').filter(filterByTitle).parent().parent().parent();
+  } else {
+    return $('.card-label').filter(filterByTitle).parent().parent().parent();
+  }
 }
 
 function expandStory(title) {
   console.log('Expanding story "' + title + '"');
-  setDisplay(title, 'unset');
+  var cards = getCardsByTitle(title);
+  setDisplayOfCards(cards, 'unset');
 }
 
 function collapseStory(title) {
   console.log('Collapsing story "' + title + '"');
-  setDisplay(title, 'none');
+  var cards = getCardsByTitle(title);
+  setDisplayOfCards(cards, 'none');
 }
 
-function setDisplay(title, display) {
-  var cards = getCardsByTitle(title);
+function expandCard(card) {
+  console.log('Expanding card');
+  setDisplayOfCards(card, 'unset');
+}
 
+function collapseCard(card) {
+  console.log('Collapsing card');
+  setDisplayOfCards(card, 'none');
+}
+
+function setDisplayOfCards(cards, display) {
   cards.find('.list-card-title').css('display', display);
   cards.find('.badges').css('display', display);
   cards.find('.sticker').css('display', display);
-  //cards.find('.list-card-details').css('margin', '0');
+  if (display === 'none') {
+    cards.find('.list-card-details').addClass('collapsed');
+  } else {
+    cards.find('.list-card-details').removeClass('collapsed');
+  }
   cards.find('.list-card-members').css('display', display);
 }
 
