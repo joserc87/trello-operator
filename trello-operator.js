@@ -1,12 +1,12 @@
 
 // Globals
 var $,
-    byteString,
-    xlsx,
-    ArrayBuffer,
-    Uint8Array,
-    Blob,
-    saveAs;
+  byteString,
+  xlsx,
+  ArrayBuffer,
+  Uint8Array,
+  Blob,
+  saveAs;
 
 // BUTTON
 
@@ -112,51 +112,58 @@ function getCardsByTitle(title) {
 function expandStory(title) {
   console.log('Expanding story "' + title + '"');
   var cards = getCardsByTitle(title);
-  setDisplayOfCards(cards, 'unset');
+  setCardsExpanded(cards, true);
 }
 
 function collapseStory(title) {
   console.log('Collapsing story "' + title + '"');
   var cards = getCardsByTitle(title);
-  setDisplayOfCards(cards, 'none');
+  setCardsExpanded(cards, false);
 }
 
 function expandCard(card) {
   console.log('Expanding card');
-  setDisplayOfCards(card, 'unset');
+  setCardsExpanded(card, true);
 }
 
 function collapseCard(card) {
   console.log('Collapsing card');
-  setDisplayOfCards(card, 'none');
+  setCardsExpanded(card, false);
 }
 
-function setDisplayOfCards(cards, display) {
+/**
+ * Sets a card as collapsed or expanded 
+ * @param cards The list of cards, retrieved by jQuery
+ * @param expanded boolean. True to expand, false to collapse
+ */
+function setCardsExpanded(cards, expanded) {
+  var display = expanded ? 'unset' : 'none';
+
   cards.find('.list-card-title').css('display', display);
   cards.find('.badges').css('display', display);
   cards.find('.sticker').css('display', display);
-  if (display === 'none') {
-    cards.find('.list-card-details').addClass('collapsed');
-  } else {
+  if (expanded) {
     cards.find('.list-card-details').removeClass('collapsed');
+  } else {
+    cards.find('.list-card-details').addClass('collapsed');
   }
   cards.find('.list-card-members').css('display', display);
 }
 
 function expandEverything() {
-    $('.list-card-title').css('display', 'unset');
-    $('.badges').css('display', 'unset');
-    $('.sticker').css('display', 'unset');
-    $('.list-card-details').css('margin', '0');
-    $('.list-card-members').css('display', 'unset');
+  $('.list-card-title').css('display', 'unset');
+  $('.badges').css('display', 'unset');
+  $('.sticker').css('display', 'unset');
+  $('.list-card-details').css('margin', '0');
+  $('.list-card-members').css('display', 'unset');
 }
 
 function collapseEverything() {
-    $('.list-card-title').css('display', 'none');
-    $('.badges').css('display', 'none');
-    $('.sticker').css('display', 'none');
-    $('.list-card-details').css('margin', '0');
-    $('.list-card-members').css('display', 'none');
+  $('.list-card-title').css('display', 'none');
+  $('.badges').css('display', 'none');
+  $('.sticker').css('display', 'none');
+  $('.list-card-details').css('margin', '0');
+  $('.list-card-members').css('display', 'none');
 }
 
 function applyExtension() {
@@ -167,11 +174,11 @@ function applyExtension() {
 
 // on DOM load
 $(function () {
-    "use strict";
-    var addInterval = setTimeout(applyExtension, 500);
-    // Look for clicks on the .js-share class, which is
-    // the "Share, Print, Export..." link on the board header option list
-    $(document).on('mouseup', function () {
-        //addInterval = setInterval(addExportLink, 500);
-    });
+  "use strict";
+  var addInterval = setTimeout(applyExtension, 500);
+  // Look for clicks on the .js-share class, which is
+  // the "Share, Print, Export..." link on the board header option list
+  $(document).on('mouseup', function () {
+    //addInterval = setInterval(addExportLink, 500);
+  });
 });
