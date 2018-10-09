@@ -12,6 +12,9 @@
             "js": [
                 "lib/jquery.min.js",
                 "trello-operator.js"
+            ],
+            "css": [
+                "trello-operator.css"
             ]
         }
     ],
