@@ -2,8 +2,14 @@
     "manifest_version": 2,
 
     "name": "Trello Operator",
-    "description": "RavenPack trello plugin - Expands stories and more",
-    "version": "1.0",
+    "short_name": "Trello Operator",
+    "description": "RP trello plugin - Expands stories and more",
+    "version": "1.0.0.1",
+
+    "icons": {
+        "512": "icon-512.png",
+        "128": "icon-128.png"
+    },
 
     "content_scripts": [
         {
