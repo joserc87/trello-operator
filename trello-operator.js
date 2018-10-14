@@ -95,7 +95,7 @@ function addButtons() {
   var collapseButton = createCollapseButton();
   $('.list-card').append(collapseButton);
   var pluginButton = createPluginButton();
-  $('.board-header-plugin-btns').append(pluginButton);
+  $('.board-header').append(pluginButton);
 }
 
 
