@@ -1,8 +1,6 @@
 TRELLO OPERATOR
 ---------------
 
-https://chrome.google.com/webstore/detail/trello-operator/hdhgahihkcogpabmijdknjijdiepbclp
-
 A simple [chrome
 extension](https://chrome.google.com/webstore/detail/trello-operator/hdhgahihkcogpabmijdknjijdiepbclp)
 to collapse cards based on their tags
