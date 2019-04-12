@@ -8,6 +8,28 @@ var $,
   Blob,
   saveAs;
 
+// Credit from https://stackoverflow.com/questions/3219758/detect-changes-in-the-dom/14570614#14570614
+var observeDOM = (function(){
+  var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+
+  return function( obj, callback ){
+    if( !obj || !obj.nodeType === 1 ) return; // validation
+
+    if( MutationObserver ) {
+      // define a new observer
+      var obs = new MutationObserver(function(mutations, observer) {
+          callback(mutations);
+      })
+      // have the observer observe foo for changes in children
+      obs.observe( obj, { childList:true, subtree:true });
+    } else if( window.addEventListener ) {
+      obj.addEventListener('DOMNodeInserted', callback, false);
+      obj.addEventListener('DOMNodeRemoved', callback, false);
+    }
+  }
+})();
+
+
 // BUTTON
 
 function handleCollapseButton(e) {
@@ -63,7 +85,7 @@ function createCollapseButton() {
 
 function createPluginButton() {
   var container = $('<span/>', {
-    class: 'board-header-btn'
+    class: 'board-header-btn trello-operator-header-btn'
   });
 
   var icon = $('<span/>', {
@@ -93,9 +115,9 @@ function createPluginButton() {
  */
 function addButtons() {
   var collapseButton = createCollapseButton();
-  $('.list-card').append(collapseButton);
+  $('.list-card:not(:has(.collapse-button))').append(collapseButton);
   var pluginButton = createPluginButton();
-  $('.board-header').append(pluginButton);
+  $('.board-header:not(:has(.trello-operator-header-btn))').append(pluginButton);
 }
 
 
@@ -205,6 +227,31 @@ function applyExtension() {
   //collapse()
   addEventListeners();
   addButtons();
+  watchForChangingBoard();
+}
+
+var waiting = false;
+
+function handleSurfaceChangedDelayed() {
+  console.log('Surface changed! Re-applying extension');
+  applyExtension()
+  waiting = false;
+}
+
+function handleSurfaceChanged() {
+  // This handler will be called many many times
+  // On every time the handler is called, we should timeout a callback
+  // that will add the button to the toolbar if not present, and
+  // to the cards that don't have a dropdown
+  if (!waiting) {
+    waiting = true;
+    setTimeout(handleSurfaceChangedDelayed, 500);
+  }
+}
+
+function watchForChangingBoard() {
+  var surface = document.querySelector('#surface');
+  observeDOM(surface, handleSurfaceChanged);
 }
 
 // on DOM load
