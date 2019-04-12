@@ -4,7 +4,7 @@
     "name": "Trello Operator",
     "short_name": "Trello Operator",
     "description": "RP trello plugin - Expands stories and more",
-    "version": "1.0.0.1",
+    "version": "1.0.1.0",
 
     "icons": {
         "512": "icon-512.png",
