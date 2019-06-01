@@ -3,10 +3,14 @@
   "version": "1.0.1.0",
   "description": "RP trello plugin - Expands stories and more",
   "scripts": {
-    "build": "node utils/build.js",
+    "build": "webpack",
     "start": "node utils/webserver.js"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "2.1.0",
@@ -17,11 +21,12 @@
     "mini-css-extract-plugin": "^0.7.0",
     "style-loader": "^0.23.1",
     "webpack": "4.28.4",
-    "webpack-cli": "^3.2.1",
+    "webpack-cli": "^3.3.2",
     "webpack-dev-server": "3.1.14",
     "write-file-webpack-plugin": "4.5.0"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "jquery": "^3.4.1"
   }
 }

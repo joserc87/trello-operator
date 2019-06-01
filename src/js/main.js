@@ -2,7 +2,7 @@ import css from '../css/main.css'
 import $ from 'jquery';
 
 // Globals
-var byteString,
+let byteString,
   xlsx,
   ArrayBuffer,
   Uint8Array,
