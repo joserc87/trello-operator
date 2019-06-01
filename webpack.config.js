@@ -26,7 +26,7 @@ var options = {
     popup: path.join(__dirname, "src", "js", "popup.js"),
     options: path.join(__dirname, "src", "js", "options.js"),
     background: path.join(__dirname, "src", "js", "background.js"),
-    'trello-operator': path.join(__dirname, "src", "js", "trello-operator.js")
+    main: path.join(__dirname, "src", "js", "main.js")
   },
   output: {
     path: path.join(__dirname, "build"),

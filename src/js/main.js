@@ -1,4 +1,4 @@
-import css from '../css/trello-operator.css'
+import css from '../css/main.css'
 import $ from 'jquery';
 
 // Globals

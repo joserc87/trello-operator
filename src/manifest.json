@@ -16,10 +16,10 @@
             "all_frames": true,
             "matches": ["https://trello.com/*"] ,
             "js": [
-                "trello-operator.bundle.js"
+                "main.bundle.js"
             ],
             "css": [
-                "trello-operator.css"
+                "main.css"
             ]
         }
     ],
