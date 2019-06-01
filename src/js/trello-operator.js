@@ -1,7 +1,8 @@
+import css from '../css/trello-operator.css'
+import $ from 'jquery';
 
 // Globals
-var $,
-  byteString,
+var byteString,
   xlsx,
   ArrayBuffer,
   Uint8Array,
