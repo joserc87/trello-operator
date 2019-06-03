@@ -63,3 +63,17 @@ export function collapseEverything() {
   $('.list-card-members').css('display', 'none');
 }
 
+/**
+ * Given a title, find all the cards that contain a label with that title
+ */
+export function getCardsByTitle(title) {
+  function filterByTitle(index, element) {
+    return title === undefined || element.title === title;
+  }
+
+  if (title !== undefined) {
+    return $('.card-label').filter(filterByTitle).parent().parent().parent();
+  } else {
+    return $('.card-label').filter(filterByTitle).parent().parent().parent();
+  }
+}
