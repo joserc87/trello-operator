@@ -1,9 +1,9 @@
-
 import $ from 'jquery'
+import {Component} from '../Component'
 
-export class CardCollapseButton {
-
+export class CardCollapseButton extends Component {
   constructor() {
+    super('.list-card:not(:has(.collapse-button))')
     this.handleButtonClick = this.handleButtonClick.bind(this)
   }
 
@@ -68,10 +68,6 @@ export class CardCollapseButton {
     }
 
     return this.button
-  }
-
-  mount() {
-    $('.list-card:not(:has(.collapse-button))').append(this.render)
   }
 
 }
