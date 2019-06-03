@@ -1,7 +1,7 @@
 import css from '../css/main.css'
 import $ from 'jquery';
 import observeDOM from './observeDOM'
-import CardCollapseButton from './CardCollapseButton'
+import {CardCollapseButton} from './CardCollapseButton'
 
 // Globals
 let byteString,
@@ -12,57 +12,6 @@ let byteString,
   saveAs;
 
 // BUTTON
-
-function handleCollapseButton(e) {
-
-  // Check if collapsing or expanding
-  var button = $(e.target);
-  var card = button.parent();
-
-  // Story title
-  var title = card.find('.card-label').attr('title');
-  var collapsed = card.hasClass('collapsed');
-
-  // If there is no label, the cards is the current one
-  var cards = title === undefined ? card : getCardsByTitle(title);
-
-  // Reverse buttons direcitons for this story
-  var buttons = cards.find('.collapse-button');
-  if (collapsed) {
-    buttons.removeClass('icon-down').addClass('icon-up');
-  } else {
-    buttons.removeClass('icon-up').addClass('icon-down');
-  }
-
-  // Collapse or expand
-  if (collapsed) {
-    cards.removeClass('collapsed');
-    if (title) {
-      expandStory(title);
-    } else {
-      expandCard(card);
-    }
-  } else {
-    cards.addClass('collapsed');
-    if (title) {
-      collapseStory(title);
-    } else {
-      collapseCard(card);
-    }
-  }
-
-  // Stop propagation
-  e.preventDefault();
-  e.stopPropagation();
-}
-
-function createCollapseButton() {
-  var button = $('<span/>');
-  button.addClass("collapse-button icon-sm icon-up list-card-operation dark-hover js-open-quick-card-editor js-card-menu");
-  button.on('click', handleCollapseButton);
-
-  return button;
-}
 
 function createPluginButton() {
   var container = $('<span/>', {
@@ -95,8 +44,9 @@ function createPluginButton() {
  * Adds the plugin buttons to the page
  */
 function addButtons() {
-  var collapseButton = createCollapseButton();
-  $('.list-card:not(:has(.collapse-button))').append(collapseButton);
+  const collapseButton = new CardCollapseButton()
+  collapseButton.mount()
+
   var pluginButton = createPluginButton();
   $('.board-header:not(:has(.trello-operator-header-btn))').append(pluginButton);
 }
