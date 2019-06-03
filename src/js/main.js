@@ -31,6 +31,10 @@ function addButtons() {
 }
 
 
+/**
+ * UNUSED FUNCTIONALITY
+ * REMOVE
+ */
 function addEventListeners() {
   $('.card-label').dblclick(function(e) {
     //alert('double click!');

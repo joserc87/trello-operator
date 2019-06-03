@@ -1,5 +1,9 @@
 import $ from 'jquery'
 import {Component} from '../Component'
+import {
+  expandCard,
+  collapseCard,
+} from '../../utils/trello/ui'
 
 export class CardCollapseButton extends Component {
   constructor() {
